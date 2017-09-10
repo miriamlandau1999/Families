@@ -1,0 +1,13 @@
+﻿@using WebApplication1.Models
+@model NewKidView
+<form method="post" action="AddKid">
+    <h3>Enter new child's info</h3>
+    <br />
+    <input type="text" placeholder="First Name" name="FirstName" class="form-control" />
+    <br />
+    <input type="text" placeholder="Age" name="Age" class="form-control" />
+    <br />
+    <input hidden value="@Model.Family.Id" name="FamilyId" />
+    <button class="btn btn-primary">Submit</button>
+</form>
+

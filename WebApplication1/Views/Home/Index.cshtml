@@ -1,0 +1,47 @@
+﻿@using WebApplication1.Models
+@using WebApplication1.data
+@model IndexViewModel
+<div class="col-md-6 col-md-offset-4">
+    @if (Model.Family != null)
+    {
+        if (Model.Activity == Activity.Added)
+        {
+            <div class="alert alert-success">
+                <strong>The @Model.Family.LastName Family Successfully joined!!</strong>
+            </div>
+        }
+        else if (Model.Activity == Activity.Deleted)
+        {
+            <div class="alert alert-success">
+                <strong>The @Model.Family.LastName Family has left :( </strong>
+            </div>
+        }
+
+    }
+    <a href="/home/NewFamily" class="btn btn-primary">Add a new family</a>
+    <br />
+    <br />
+    <table class="table table-hover table-bordered table-striped">
+        <tr>
+            <th>Family Name</th>
+            <th>Number Of Kids</th>
+            <th>Delete</th>
+            <th>See Kids</th>
+        </tr>
+        @foreach(FamilyWithNumberOfKids family in Model.FamiliesWithNumberOfKids)
+        {
+            <tr>
+                <td>@family.LastName</td>
+                <td>@family.NumberOfKids</td>
+                <td>
+                        <a class="btn btn-primary" href="/home/SeeKids?Id=@family.Id&&LastName=@family.LastName">See Kids</a>                   
+                </td>
+                <td><form action="/home/DeleteFamily" method="post">
+                    <input hidden value="@family.Id" name="Id" />
+                    <input hidden value="@family.LastName" name="LastName" />
+                    <button class="btn btn-primary">Delete</button>
+                </form></td>
+            </tr>
+        }
+    </table>
+</div>
